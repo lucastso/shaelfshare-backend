@@ -73,4 +73,15 @@ export class BookmarksService {
 
     return 'Successfully favourited!';
   }
+
+  async addCategoryToBookmark(id: number, categoryId: number) {
+    const bookmark = await this.prisma.bookmark.update({
+      where: { id },
+      data: {
+        categoryId: categoryId,
+      },
+    });
+
+    return bookmark;
+  }
 }

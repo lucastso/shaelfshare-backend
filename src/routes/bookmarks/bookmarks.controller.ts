@@ -37,4 +37,13 @@ export class BookmarksController {
   async postFavourite(@Param('id') id: string) {
     return this.bookmarksService.favouriteBookmark(Number(id));
   }
+
+  @Post('category/add/:id')
+  async postAddCategoryToBookmark(
+    @Param('id') id: string,
+    @Body() body: { categoryId: number },
+  ) {
+    const { categoryId } = body;
+    return this.bookmarksService.addCategoryToBookmark(Number(id), categoryId);
+  }
 }
