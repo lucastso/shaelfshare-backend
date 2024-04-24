@@ -10,4 +10,16 @@ export class FoldersService {
 
     return folders;
   }
+
+  async createFolder(name: string, collabsId: string[], creatorId: string) {
+    const folder = await this.prisma.folder.create({
+      data: {
+        name,
+        collabsId,
+        creatorId,
+      },
+    });
+
+    return folder;
+  }
 }

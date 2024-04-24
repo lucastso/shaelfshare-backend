@@ -1,5 +1,6 @@
-import { Controller, Get } from '@nestjs/common';
+import { Body, Controller, Get, Post } from '@nestjs/common';
 import { FoldersService } from './folders.service';
+import { FolderBody } from 'src/dtos/folder-body';
 
 @Controller('folders')
 export class FoldersController {
@@ -8,5 +9,11 @@ export class FoldersController {
   @Get()
   async getAllFolders() {
     return this.foldersService.getFolders();
+  }
+
+  @Post()
+  async postFolder(@Body() body: FolderBody) {
+    const { name, collabsId, creatorId } = body;
+    return this.foldersService.createFolder(name, collabsId, creatorId);
   }
 }

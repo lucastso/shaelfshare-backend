@@ -33,7 +33,6 @@ model Folder {
   id        Int      @id @default(autoincrement())
   creatorId String
   collabsId String[]
-  color     String
   name      String
   createdAt DateTime @default(now())
 }
