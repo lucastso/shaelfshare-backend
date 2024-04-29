@@ -18,6 +18,7 @@ export class BookmarksService {
       ],
       include: {
         category: true,
+        folder: true,
       },
     });
 
@@ -79,6 +80,17 @@ export class BookmarksService {
       where: { id },
       data: {
         categoryId: categoryId,
+      },
+    });
+
+    return bookmark;
+  }
+
+  async removeCategoryToBookmark(id: number) {
+    const bookmark = await this.prisma.bookmark.update({
+      where: { id },
+      data: {
+        categoryId: null,
       },
     });
 

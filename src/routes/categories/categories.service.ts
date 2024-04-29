@@ -30,6 +30,13 @@ export class CategoriesService {
   }
 
   async deleteCategory(id: number) {
+    await this.prisma.bookmark.updateMany({
+      where: { categoryId: id },
+      data: {
+        categoryId: null,
+      },
+    });
+
     await this.prisma.category.delete({
       where: { id: id },
     });

@@ -12,29 +12,31 @@ model User {
   email        String   @unique
   password     String
   createdAt    DateTime @default(now())
-  subscription String @default("free")
+  subscription String   @default("free")
   activeFolder Int      @default(0)
 }
 
 model Bookmark {
   id         Int       @id @default(autoincrement())
   userId     String
-  folderId   Int
+  folder     Folder?   @relation(fields: [folderId], references: [id])
+  folderId   Int?
   category   Category? @relation(fields: [categoryId], references: [id])
+  categoryId Int?
   url        String
   name       String
   icon       String
   favourite  Boolean   @default(false)
   createdAt  DateTime  @default(now())
-  categoryId Int?
 }
 
 model Folder {
-  id        Int      @id @default(autoincrement())
+  id        Int        @id @default(autoincrement())
   creatorId String
   collabsId String[]
   name      String
-  createdAt DateTime @default(now())
+  createdAt DateTime   @default(now())
+  Bookmark  Bookmark[]
 }
 
 model Category {

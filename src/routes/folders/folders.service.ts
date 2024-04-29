@@ -22,4 +22,19 @@ export class FoldersService {
 
     return folder;
   }
+
+  async deleteFolder(id: number) {
+    await this.prisma.bookmark.updateMany({
+      where: { folderId: id },
+      data: {
+        folderId: null,
+      },
+    });
+
+    await this.prisma.folder.delete({
+      where: { id: id },
+    });
+
+    return 'Deleted!';
+  }
 }

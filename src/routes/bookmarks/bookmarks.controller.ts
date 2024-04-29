@@ -46,4 +46,9 @@ export class BookmarksController {
     const { categoryId } = body;
     return this.bookmarksService.addCategoryToBookmark(Number(id), categoryId);
   }
+
+  @Post('category/remove/:id')
+  async postRemoveCategoryToBookmark(@Param('id') id: string) {
+    return this.bookmarksService.removeCategoryToBookmark(Number(id));
+  }
 }
