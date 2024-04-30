@@ -48,7 +48,21 @@ export class BookmarksController {
   }
 
   @Post('category/remove/:id')
-  async postRemoveCategoryToBookmark(@Param('id') id: string) {
-    return this.bookmarksService.removeCategoryToBookmark(Number(id));
+  async postRemoveCategoryFromBookmark(@Param('id') id: string) {
+    return this.bookmarksService.removeCategoryFromBookmark(Number(id));
+  }
+
+  @Post('folder/add/:id')
+  async postAddFolderToBookmark(
+    @Param('id') id: string,
+    @Body() body: { folderId: number },
+  ) {
+    const { folderId } = body;
+    return this.bookmarksService.addFolderToBookmark(Number(id), folderId);
+  }
+
+  @Post('folder/remove/:id')
+  async postRemoveFolderFromBookmark(@Param('id') id: string) {
+    return this.bookmarksService.removeFolderFromBookmark(Number(id));
   }
 }

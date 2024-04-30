@@ -86,11 +86,33 @@ export class BookmarksService {
     return bookmark;
   }
 
-  async removeCategoryToBookmark(id: number) {
+  async removeCategoryFromBookmark(id: number) {
     const bookmark = await this.prisma.bookmark.update({
       where: { id },
       data: {
         categoryId: null,
+      },
+    });
+
+    return bookmark;
+  }
+
+  async addFolderToBookmark(id: number, folderId: number) {
+    const bookmark = await this.prisma.bookmark.update({
+      where: { id },
+      data: {
+        folderId: folderId,
+      },
+    });
+
+    return bookmark;
+  }
+
+  async removeFolderFromBookmark(id: number) {
+    const bookmark = await this.prisma.bookmark.update({
+      where: { id },
+      data: {
+        folderId: null,
       },
     });
 

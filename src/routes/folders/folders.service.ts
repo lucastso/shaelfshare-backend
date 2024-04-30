@@ -6,7 +6,11 @@ export class FoldersService {
   constructor(private prisma: PrismaService) {}
 
   async getFolders() {
-    const folders = await this.prisma.folder.findMany();
+    const folders = await this.prisma.folder.findMany({
+      include: {
+        creator: true,
+      },
+    });
 
     return folders;
   }

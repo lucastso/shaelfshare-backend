@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common';
 import { FoldersService } from './folders.service';
 import { FolderBody } from 'src/dtos/folder-body';
 
@@ -15,5 +15,10 @@ export class FoldersController {
   async postFolder(@Body() body: FolderBody) {
     const { name, collabsId, creatorId } = body;
     return this.foldersService.createFolder(name, collabsId, creatorId);
+  }
+
+  @Delete('/:id')
+  async deleteFolder(@Param('id') id: string) {
+    return this.foldersService.deleteFolder(Number(id));
   }
 }

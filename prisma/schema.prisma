@@ -10,10 +10,13 @@ datasource db {
 model User {
   id           String   @id @default(uuid())
   email        String   @unique
+  name         String
+  photo        String
   password     String
   createdAt    DateTime @default(now())
   subscription String   @default("free")
   activeFolder Int      @default(0)
+  Folder Folder[]
 }
 
 model Bookmark {
@@ -32,7 +35,8 @@ model Bookmark {
 
 model Folder {
   id        Int        @id @default(autoincrement())
-  creatorId String
+  creator      User?   @relation(fields: [creatorId], references: [id])
+  creatorId String?
   collabsId String[]
   name      String
   createdAt DateTime   @default(now())
