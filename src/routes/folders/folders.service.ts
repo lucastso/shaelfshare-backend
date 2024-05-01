@@ -41,4 +41,23 @@ export class FoldersService {
 
     return 'Deleted!';
   }
+
+  async getAllUsersFromFolder(id: number) {
+    const collabsId = await this.prisma.folder.findMany({
+      where: {
+        id: id
+      },
+      select: { collabsId: true }
+    });
+
+    const users = await this.prisma.user.findMany({
+      where: {
+        id: {
+          in: collabsId[0].collabsId
+        }
+      }
+    })
+
+    return users;
+  }
 }

@@ -21,4 +21,9 @@ export class FoldersController {
   async deleteFolder(@Param('id') id: string) {
     return this.foldersService.deleteFolder(Number(id));
   }
+
+  @Get('/collabs/:id')
+  async getAllUsersFromFolder(@Param('id') id: string) {
+    return this.foldersService.getAllUsersFromFolder(Number(id));
+  }
 }
