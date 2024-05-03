@@ -11,6 +11,11 @@ export class FoldersController {
     return this.foldersService.getFolders();
   }
 
+  @Get('/bookmarks/:id')
+  async getAllFolderBookmarks(@Param('id') id: string) {
+    return this.foldersService.getFolderBookmarks(Number(id));
+  }
+
   @Post()
   async postFolder(@Body() body: FolderBody) {
     const { name, collabsId, creatorId } = body;

@@ -8,42 +8,45 @@ datasource db {
 }
 
 model User {
-  id           String   @id @default(uuid())
-  email        String   @unique
+  id           String     @id @default(uuid())
+  email        String     @unique
   name         String
   photo        String
   password     String
-  createdAt    DateTime @default(now())
-  subscription String   @default("free")
-  activeFolder Int      @default(0)
-  Folder Folder[]
+  createdAt    DateTime   @default(now())
+  subscription String     @default("free")
+  activeFolder Int        @default(0)
+  Folder       Folder[]
+  Bookmark     Bookmark[]
 }
 
 model Bookmark {
-  id         Int       @id @default(autoincrement())
+  id         Int               @id @default(autoincrement())
   userId     String
-  folder     Folder?   @relation(fields: [folderId], references: [id])
+  folder     Folder?           @relation(fields: [folderId], references: [id])
+  category   BookmarkCategory? @relation(fields: [categoryId], references: [id])
+  user       User?             @relation(fields: [userId], references: [id])
   folderId   Int?
-  category   Category? @relation(fields: [categoryId], references: [id])
   categoryId Int?
   url        String
   name       String
   icon       String
-  favourite  Boolean   @default(false)
-  createdAt  DateTime  @default(now())
+  favourite  Boolean           @default(false)
+  createdAt  DateTime          @default(now())
 }
 
 model Folder {
-  id        Int        @id @default(autoincrement())
-  creator      User?   @relation(fields: [creatorId], references: [id])
-  creatorId String?
-  collabsId String[]
-  name      String
-  createdAt DateTime   @default(now())
-  Bookmark  Bookmark[]
+  id             Int              @id @default(autoincrement())
+  creator        User?            @relation(fields: [creatorId], references: [id])
+  creatorId      String?
+  collabsId      String[]
+  name           String
+  createdAt      DateTime         @default(now())
+  Bookmark       Bookmark[]
+  FolderCategory FolderCategory[]
 }
 
-model Category {
+model BookmarkCategory {
   id              Int        @id @default(autoincrement())
   creatorId       String
   name            String
@@ -51,4 +54,15 @@ model Category {
   textColor       String
   createdAt       DateTime   @default(now())
   Bookmark        Bookmark[]
+}
+
+model FolderCategory {
+  id              Int      @id @default(autoincrement())
+  creatorId       String
+  name            String
+  folder          Folder?  @relation(fields: [folderId], references: [id])
+  folderId        Int?
+  backgroundColor String
+  textColor       String
+  createdAt       DateTime @default(now())
 }

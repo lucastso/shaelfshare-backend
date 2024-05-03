@@ -6,7 +6,7 @@ export class CategoriesService {
   constructor(private prisma: PrismaService) {}
 
   async getCategories() {
-    const categories = await this.prisma.category.findMany();
+    const categories = await this.prisma.bookmarkCategory.findMany();
 
     return categories;
   }
@@ -17,7 +17,7 @@ export class CategoriesService {
     backgroundColor: string,
     textColor: string,
   ) {
-    const category = await this.prisma.category.create({
+    const category = await this.prisma.bookmarkCategory.create({
       data: {
         creatorId,
         name,
@@ -37,7 +37,7 @@ export class CategoriesService {
       },
     });
 
-    await this.prisma.category.delete({
+    await this.prisma.bookmarkCategory.delete({
       where: { id: id },
     });
 

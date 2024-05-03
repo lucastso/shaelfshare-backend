@@ -15,6 +15,20 @@ export class FoldersService {
     return folders;
   }
 
+  async getFolderBookmarks(bookmarkId: number) {
+    const bookmarks = await this.prisma.bookmark.findMany({
+      where: {
+        folderId: bookmarkId
+      },
+      include: {
+        category: true,
+        user: true
+      }
+    });
+
+    return bookmarks;
+  }
+
   async createFolder(name: string, collabsId: string[], creatorId: string) {
     const folder = await this.prisma.folder.create({
       data: {
